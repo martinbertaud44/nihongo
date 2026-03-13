@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7ecfef">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="Apprends le japonais de A à Z — Hiragana, Katakana, Kanji, Grammaire, Vocabulaire">
+<title>🌸 にほんご Learn</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky:#7ecfef;--sky-l:#c2e9f7;--sky-d:#3aa0cc;
+  --mint:#a8eac8;--mint-d:#4db888;
+  --pink:#ffb3d1;--pink-d:#ff6fa8;
+  --lav:#d4c6f7;--lav-d:#9b7fe8;
+  --gold:#ffe066;--gold-d:#f0b800;
+  --glass:rgba(255,255,255,0.52);
+  --gb:rgba(255,255,255,0.78);
+  --sh:0 8px 32px rgba(62,160,210,.18);
+  --shd:0 16px 48px rgba(62,160,210,.28);
+  --txt:#2a4a6b;--txt-l:#5a8ab0;
+  --ok:#4db888;--err:#ff6fa8;
+  --r:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;min-height:100vh;background:linear-gradient(135deg,#c2e9f7 0%,#a8f0e0 30%,#d4c6f7 65%,#ffcce5 100%);background-attachment:fixed;color:var(--txt);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 15%,rgba(126,207,239,.3) 0%,transparent 50%),radial-gradient(ellipse at 85% 85%,rgba(168,234,200,.25) 0%,transparent 50%),radial-gradient(ellipse at 70% 10%,rgba(255,179,209,.2) 0%,transparent 40%);animation:bg 14s ease-in-out infinite alternate;z-index:-1;pointer-events:none}
+@keyframes bg{0%{transform:translate(0,0)}100%{transform:translate(2%,2%) rotate(2deg)}}
+
+/* HEADER */
+header{padding:18px 16px 10px;text-align:center;position:sticky;top:0;z-index:50;background:rgba(194,233,247,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.6);box-shadow:0 4px 20px rgba(62,160,210,.12)}
+.logo{font-size:1.9rem;font-weight:900;background:linear-gradient(135deg,#3aa0cc,#7ecfef,#4db888,#ff6fa8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 2px 6px rgba(62,160,210,.25));letter-spacing:-0.5px}
+.xp-row{display:flex;align-items:center;gap:8px;max-width:420px;margin:8px auto 0;background:var(--glass);border:1.5px solid var(--gb);border-radius:20px;padding:5px 12px;backdrop-filter:blur(10px)}
+.xp-lbl{font-size:.75rem;font-weight:800;color:var(--sky-d);white-space:nowrap}
+.xp-bg{flex:1;height:8px;background:rgba(255,255,255,.6);border-radius:8px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--sky-d),var(--mint-d));border-radius:8px;transition:width .6s cubic-bezier(.4,2,.6,1)}
+.xp-val{font-size:.75rem;font-weight:800;color:var(--mint-d);white-space:nowrap}
+
+/* NAV */
+nav{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;scrollbar-width:none;background:rgba(194,233,247,.7);backdrop-filter:blur(10px);position:sticky;top:71px;z-index:49;border-bottom:1px solid rgba(255,255,255,.5)}
+nav::-webkit-scrollbar{display:none}
+.nb{padding:8px 16px;border:1.5px solid var(--gb);border-radius:50px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;background:var(--glass);color:var(--txt);backdrop-filter:blur(10px);white-space:nowrap;transition:all .2s cubic-bezier(.4,2,.6,1)}
+.nb:hover{transform:translateY(-2px);box-shadow:var(--sh)}
+.nb.on{background:linear-gradient(135deg,var(--sky-d),var(--mint-d));color:#fff;border-color:transparent;transform:translateY(-1px)}
+
+/* MAIN */
+main{max-width:960px;margin:0 auto;padding:20px 14px 60px}
+.sc{display:none;animation:fi .3s ease}
+.sc.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARD */
+.card{background:var(--glass);border:1.5px solid var(--gb);border-radius:24px;padding:20px;backdrop-filter:blur(16px);box-shadow:var(--sh);margin-bottom:16px}
+.ctitle{font-size:1.15rem;font-weight:900;color:var(--sky-d);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+
+/* PILLS / FILTER */
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.pill{padding:5px 14px;border-radius:20px;border:1.5px solid var(--gb);background:var(--glass);font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;color:var(--txt);transition:all .18s;backdrop-filter:blur(8px)}
+.pill.on{background:linear-gradient(135deg,var(--sky-d),var(--mint-d));color:#fff;border-color:transparent}
+
+/* HOME */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.hcard{background:var(--glass);border:1.5px solid var(--gb);border-radius:22px;padding:22px 14px;text-align:center;cursor:pointer;backdrop-filter:blur(16px);box-shadow:var(--sh);transition:all .22s cubic-bezier(.4,2,.6,1)}
+.hcard:hover{transform:translateY(-5px) scale(1.03);box-shadow:var(--shd)}
+.hcard .ic{font-size:2.4rem;margin-bottom:8px;display:block}
+.hcard h3{font-size:.95rem;font-weight:900}
+.hcard p{font-size:.74rem;color:var(--txt-l);margin-top:3px;font-weight:600}
+.hc1{background:linear-gradient(135deg,rgba(126,207,239,.4),rgba(168,234,200,.4))}
+.hc2{background:linear-gradient(135deg,rgba(255,179,209,.4),rgba(255,224,102,.4))}
+.hc3{background:linear-gradient(135deg,rgba(168,234,200,.4),rgba(212,198,247,.4))}
+.hc4{background:linear-gradient(135deg,rgba(255,224,102,.4),rgba(255,179,209,.4))}
+.hc5{background:linear-gradient(135deg,rgba(212,198,247,.4),rgba(126,207,239,.4))}
+.hc6{background:linear-gradient(135deg,rgba(168,234,200,.35),rgba(255,224,102,.4))}
+.streak{background:linear-gradient(135deg,rgba(255,224,102,.45),rgba(255,179,209,.4));border:1.5px solid rgba(255,200,80,.5);border-radius:18px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.stat-row{display:flex;gap:10px;flex-wrap:wrap}
+.sbox{flex:1;min-width:100px;border-radius:16px;padding:12px;text-align:center;border:1.5px solid rgba(126,207,239,.4);background:linear-gradient(135deg,rgba(126,207,239,.25),rgba(168,234,200,.2))}
+.sbox .sv{font-size:1.6rem;font-weight:900;color:var(--sky-d)}
+.sbox .sl{font-size:.72rem;color:var(--txt-l);font-weight:700}
+
+/* LESSONS LIST */
+.lesson-list{display:flex;flex-direction:column;gap:10px}
+.lesson-item{background:var(--glass);border:1.5px solid var(--gb);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;backdrop-filter:blur(12px);transition:all .2s cubic-bezier(.4,2,.6,1)}
+.lesson-item:hover{transform:translateX(4px);box-shadow:var(--sh)}
+.lesson-item.done{border-color:rgba(77,184,136,.5);background:linear-gradient(135deg,rgba(77,184,136,.15),rgba(126,207,239,.1))}
+.lesson-item.locked{opacity:.5;cursor:not-allowed}
+.li-icon{font-size:1.8rem;flex-shrink:0}
+.li-info h3{font-size:.95rem;font-weight:900}
+.li-info p{font-size:.76rem;color:var(--txt-l);font-weight:600;margin-top:2px}
+.li-badge{margin-left:auto;font-size:.72rem;font-weight:900;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.lb-done{background:rgba(77,184,136,.25);color:#2e7d52}
+.lb-new{background:rgba(126,207,239,.3);color:var(--sky-d)}
+.lb-lock{background:rgba(0,0,0,.07);color:var(--txt-l)}
+
+/* KANA TABLE */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px}
+.kcell{background:var(--glass);border:1.5px solid var(--gb);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;backdrop-filter:blur(10px);transition:all .18s cubic-bezier(.4,2,.6,1)}
+.kcell:hover{transform:translateY(-3px) scale(1.06);box-shadow:var(--sh)}
+.kcell.lrn{background:linear-gradient(135deg,rgba(77,184,136,.35),rgba(126,207,239,.25));border-color:rgba(77,184,136,.5)}
+.kc{font-family:'Noto Sans JP',sans-serif;font-size:1.5rem;color:var(--txt);display:block}
+.kr{font-size:.68rem;color:var(--txt-l);font-weight:700;margin-top:1px}
+
+/* FLASHCARD */
+.fcwrap{perspective:1000px;margin:16px auto;max-width:320px;height:200px}
+.fc{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,2,.4,1);cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--gb);backdrop-filter:blur(16px);box-shadow:var(--shd)}
+.front{background:linear-gradient(135deg,rgba(126,207,239,.6),rgba(168,234,200,.5))}
+.back{background:linear-gradient(135deg,rgba(255,179,209,.5),rgba(255,224,102,.4));transform:rotateY(180deg)}
+.fkana{font-family:'Noto Sans JP',sans-serif;font-size:4.5rem;color:var(--txt)}
+.fhint{font-size:.76rem;color:var(--txt-l);font-weight:700;margin-top:6px}
+.from{font-size:2rem;font-weight:900;color:var(--sky-d)}
+.fex{font-size:.78rem;color:var(--txt-l);font-weight:600;margin-top:4px;text-align:center;padding:0 16px}
+.fc-ctrl{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.fcb{padding:10px 22px;border-radius:50px;border:none;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;cursor:pointer;transition:all .18s cubic-bezier(.4,2,.6,1);box-shadow:var(--sh)}
+.fcb:hover{transform:translateY(-2px) scale(1.04)}
+.fcb.good{background:linear-gradient(135deg,var(--mint-d),#2ecc71);color:#fff}
+.fcb.bad{background:linear-gradient(135deg,var(--pink-d),#e74c3c);color:#fff}
+.fcb.skip{background:var(--glass);border:1.5px solid var(--gb);color:var(--txt);backdrop-filter:blur(8px)}
+.fc-prog{text-align:center;font-size:.8rem;color:var(--txt-l);font-weight:700;margin-bottom:6px}
+
+/* SRS badge */
+.srs-badge{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:900;padding:2px 9px;border-radius:8px;margin-top:4px}
+.srs-new{background:rgba(155,127,232,.2);color:#7c5bc4}
+.srs-learn{background:rgba(255,179,209,.3);color:#cc2266}
+.srs-review{background:rgba(77,184,136,.2);color:#2e7d52}
+.srs-master{background:rgba(255,224,102,.3);color:#8a6200}
+
+/* QUIZ */
+.qchar{font-family:'Noto Sans JP',sans-serif;font-size:4.5rem;color:var(--txt);display:block;text-align:center;filter:drop-shadow(0 4px 10px rgba(62,160,210,.2));margin-bottom:6px}
+.qlbl{text-align:center;font-size:.85rem;color:var(--txt-l);font-weight:700;margin-bottom:16px}
+.qopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin:0 auto}
+.qopt{padding:14px;border-radius:16px;border:1.5px solid var(--gb);background:var(--glass);font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;backdrop-filter:blur(10px);transition:all .18s cubic-bezier(.4,2,.6,1);color:var(--txt)}
+.qopt:hover:not(:disabled){transform:translateY(-2px) scale(1.03);box-shadow:var(--sh)}
+.qopt.ok{background:linear-gradient(135deg,rgba(77,184,136,.6),rgba(46,204,113,.5));border-color:var(--ok);color:#fff}
+.qopt.ko{background:linear-gradient(135deg,rgba(255,111,168,.6),rgba(231,76,60,.4));border-color:var(--err);color:#fff}
+.qopt:disabled{cursor:not-allowed}
+.qfb{text-align:center;font-size:1rem;font-weight:900;min-height:28px;margin:10px 0;transition:all .3s}
+.qnext{display:block;margin:10px auto 0;padding:11px 28px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--sky-d),var(--mint-d));color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.92rem;cursor:pointer;box-shadow:var(--sh);transition:all .18s cubic-bezier(.4,2,.6,1)}
+.qnext:hover{transform:translateY(-2px) scale(1.04);box-shadow:var(--shd)}
+.qscore{display:flex;justify-content:center;gap:14px;margin-bottom:14px}
+.qs{padding:8px 18px;border-radius:14px;background:var(--glass);border:1.5px solid var(--gb);font-weight:900;font-size:.85rem;backdrop-filter:blur(8px)}
+
+/* KANJI */
+.kajgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.kajcard{background:var(--glass);border:1.5px solid var(--gb);border-radius:18px;padding:14px 10px;text-align:center;backdrop-filter:blur(12px);cursor:pointer;transition:all .2s cubic-bezier(.4,2,.6,1)}
+.kajcard:hover{transform:translateY(-4px) scale(1.03);box-shadow:var(--sh)}
+.kajcard.lrn{border-color:rgba(77,184,136,.5);background:linear-gradient(135deg,rgba(77,184,136,.15),rgba(126,207,239,.1))}
+.kc2{font-family:'Noto Sans JP',sans-serif;font-size:2.2rem;display:block;color:var(--txt)}
+.kon{font-size:.67rem;color:var(--sky-d);font-weight:700;margin-top:3px}
+.kkun{font-size:.67rem;color:var(--mint-d);font-weight:700}
+.kmean{font-size:.74rem;font-weight:900;color:var(--txt);margin-top:3px}
+.kjlpt{font-size:.62rem;background:var(--gold);color:#7a5800;padding:1px 6px;border-radius:7px;font-weight:900;display:inline-block;margin-top:3px}
+
+/* GRAMMAR */
+.gram-item{background:var(--glass);border:1.5px solid var(--gb);border-radius:18px;padding:16px 18px;backdrop-filter:blur(12px);margin-bottom:12px;cursor:pointer;transition:all .2s cubic-bezier(.4,2,.6,1)}
+.gram-item:hover{transform:translateX(3px);box-shadow:var(--sh)}
+.gram-title{font-size:1rem;font-weight:900;color:var(--sky-d)}
+.gram-struct{font-family:'Noto Sans JP',sans-serif;font-size:1rem;color:var(--txt);margin:4px 0;font-weight:700}
+.gram-ex{font-size:.82rem;color:var(--txt-l);line-height:1.5;font-weight:600}
+.gram-body{display:none;margin-top:10px;border-top:1px solid rgba(126,207,239,.3);padding-top:10px}
+.gram-body.open{display:block}
+.gram-example{background:linear-gradient(135deg,rgba(126,207,239,.15),rgba(168,234,200,.12));border-radius:12px;padding:10px 14px;margin-top:8px}
+.gram-jp{font-family:'Noto Sans JP',sans-serif;font-size:.95rem;font-weight:700;color:var(--txt)}
+.gram-rom{font-size:.78rem;color:var(--sky-d);font-weight:700}
+.gram-fr{font-size:.82rem;color:var(--txt-l);font-weight:600}
+.jlpt-tag{font-size:.65rem;padding:2px 8px;border-radius:8px;font-weight:900;margin-left:8px;vertical-align:middle}
+.n5t{background:rgba(77,184,136,.2);color:#2e7d52}
+.n4t{background:rgba(126,207,239,.3);color:var(--sky-d)}
+.n3t{background:rgba(212,198,247,.4);color:var(--lav-d)}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.vocab-card{background:var(--glass);border:1.5px solid var(--gb);border-radius:16px;padding:12px;backdrop-filter:blur(10px);transition:all .18s cubic-bezier(.4,2,.6,1);cursor:pointer}
+.vocab-card:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.vocab-jp{font-family:'Noto Sans JP',sans-serif;font-size:1.2rem;font-weight:700;display:block;color:var(--txt)}
+.vocab-rom{font-size:.72rem;color:var(--sky-d);font-weight:700}
+.vocab-fr{font-size:.8rem;color:var(--txt-l);font-weight:600;margin-top:2px}
+.vocab-cat{font-size:.62rem;padding:1px 7px;border-radius:7px;font-weight:900;margin-top:4px;display:inline-block}
+
+/* MODAL */
+.mover{display:none;position:fixed;inset:0;background:rgba(40,80,120,.35);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:16px}
+.mover.open{display:flex}
+.modal{background:linear-gradient(135deg,rgba(194,233,247,.97),rgba(212,198,247,.95));border:1.5px solid var(--gb);border-radius:26px;padding:28px;max-width:360px;width:100%;box-shadow:0 24px 64px rgba(62,160,210,.3);text-align:center;animation:pop .28s cubic-bezier(.4,2,.6,1)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.m-char{font-family:'Noto Sans JP',sans-serif;font-size:3.5rem;display:block;margin-bottom:6px}
+.m-title{font-size:1.3rem;font-weight:900;color:var(--sky-d)}
+.m-body{font-size:.85rem;color:var(--txt-l);font-weight:600;margin:8px 0;line-height:1.6;text-align:left}
+.m-close{margin-top:14px;padding:9px 24px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--sky-d),var(--mint-d));color:#fff;font-family:'Nunito',sans-serif;font-weight:900;cursor:pointer;font-size:.9rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,rgba(77,184,136,.95),rgba(46,204,113,.9));color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;padding:10px 22px;border-radius:50px;box-shadow:var(--shd);opacity:0;transition:all .3s;z-index:300;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* CONFETTI */
+.cf{position:fixed;pointer-events:none;z-index:400;border-radius:2px;animation:cfall 1.1s ease forwards}
+@keyframes cfall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* LESSON CONTENT */
+.lc-step{background:var(--glass);border:1.5px solid var(--gb);border-radius:18px;padding:18px;margin-bottom:12px;backdrop-filter:blur(12px)}
+.lc-step h3{font-size:1rem;font-weight:900;color:var(--sky-d);margin-bottom:8px}
+.lc-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.lc-table th{background:linear-gradient(135deg,rgba(126,207,239,.3),rgba(168,234,200,.25));padding:7px 10px;font-weight:900;color:var(--sky-d);text-align:left;border-radius:8px}
+.lc-table td{padding:7px 10px;border-bottom:1px solid rgba(126,207,239,.15);font-weight:600}
+.lc-table td:first-child{font-family:'Noto Sans JP',sans-serif;font-size:1rem}
+.lc-btns{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.lc-btn{padding:10px 22px;border-radius:50px;border:none;font-family:'Nunito',sans-serif;font-weight:900;font-size:.88rem;cursor:pointer;transition:all .18s cubic-bezier(.4,2,.6,1);box-shadow:var(--sh)}
+.lc-btn:hover{transform:translateY(-2px)}
+.lc-btn.primary{background:linear-gradient(135deg,var(--sky-d),var(--mint-d));color:#fff}
+.lc-btn.sec{background:var(--glass);border:1.5px solid var(--gb);color:var(--txt);backdrop-filter:blur(8px)}
+
+/* SRS REVIEW SCREEN */
+.srs-info{text-align:center;margin-bottom:14px;font-size:.85rem;color:var(--txt-l);font-weight:700}
+.srs-queue{text-align:center;font-size:.9rem;font-weight:800;color:var(--sky-d);margin-bottom:4px}
+
+@media(max-width:480px){.logo{font-size:1.5rem}.qopts{grid-template-columns:1fr 1fr}.kgrid{grid-template-columns:repeat(auto-fill,minmax(60px,1fr))}.hgrid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌸 にほんご Learn</div>
+  <div class="xp-row">
+    <span class="xp-lbl">⭐ Niv.<span id="lvl">1</span></span>
+    <div class="xp-bg"><div class="xp-fill" id="xpf" style="width:0%"></div></div>
+    <span class="xp-val" id="xpv">0 XP</span>
+  </div>
+</header>
+
+<nav>
+  <button class="nb on" onclick="go('home')">🏠 Accueil</button>
+  <button class="nb" onclick="window.open('lessons.html','_self')">📚 Leçons</button>
+  <button class="nb" onclick="go('kana')">あ Kana</button>
+  <button class="nb" onclick="go('kanji')">漢 Kanji</button>
+  <button class="nb" onclick="go('grammar')">📖 Grammaire</button>
+  <button class="nb" onclick="go('vocab')">💬 Vocab</button>
+  <button class="nb" onclick="go('flash')">🃏 Flashcards</button>
+  <button class="nb" onclick="go('quiz')">🎯 Quiz</button>
+  <button class="nb" onclick="go('srs')">🔁 SRS</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div id="s-home" class="sc on">
+  <div class="streak">
+    <span style="font-size:1.8rem">🔥</span>
+    <div><div style="font-weight:900;color:#b07800">Série : <span id="strk">0</span> jour(s)</div>
+    <div style="font-size:.75rem;color:#c08800;font-weight:600">Reviens chaque jour pour garder ta série !</div></div>
+    <div style="margin-left:auto;font-size:.8rem;font-weight:800;color:var(--sky-d)"><span id="srsdue">0</span> révisions</div>
+  </div>
+  <div class="hgrid" style="margin-bottom:14px">
+    <div class="hcard hc1" onclick="go('lessons')"><span class="ic">📚</span><h3>Leçons</h3><p>Parcours structuré</p></div>
+    <div class="hcard hc2" onclick="go('kana')"><span class="ic">あ</span><h3>Kana</h3><p>Hira + Kata</p></div>
+    <div class="hcard hc3" onclick="go('kanji')"><span class="ic">漢</span><h3>Kanji</h3><p>N5 → N3</p></div>
+    <div class="hcard hc4" onclick="go('quiz')"><span class="ic">🎯</span><h3>Quiz</h3><p>Teste-toi</p></div>
+    <div class="hcard hc5" onclick="go('srs')"><span class="ic">🔁</span><h3>SRS</h3><p>Répétition espacée</p></div>
+    <div class="hcard hc6" onclick="go('grammar')"><span class="ic">📖</span><h3>Grammaire</h3><p>N5 → N3</p></div>
+  </div>
+  <button id="notifBtn" class="lc-btn primary" style="width:100%;margin-bottom:14px;border-radius:50px" onclick="askNotifPermission()">🔔 Activer les rappels quotidiens</button>
+  <div class="card">
+    <div class="ctitle">📊 Ma progression</div>
+    <div class="stat-row">
+      <div class="sbox"><div class="sv" id="sh">0/46</div><div class="sl">Hiragana</div></div>
+      <div class="sbox"><div class="sv" id="sk">0/46</div><div class="sl">Katakana</div></div>
+      <div class="sbox" style="background:linear-gradient(135deg,rgba(212,198,247,.3),rgba(126,207,239,.2));border-color:rgba(212,198,247,.4)"><div class="sv" style="color:var(--lav-d)" id="skj">0/80</div><div class="sl">Kanji</div></div>
+      <div class="sbox" style="background:linear-gradient(135deg,rgba(255,224,102,.3),rgba(255,179,209,.2));border-color:rgba(255,224,102,.4)"><div class="sv" style="color:var(--gold-d)" id="sxp">0</div><div class="sl">XP total</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSONS -->
+<div id="s-lessons" class="sc">
+  <div class="card">
+    <div class="ctitle">📚 Parcours A → Z</div>
+    <div class="lesson-list" id="lessonList"></div>
+  </div>
+</div>
+
+<!-- LESSON DETAIL -->
+<div id="s-lesson" class="sc">
+  <div id="lessonContent"></div>
+</div>
+
+<!-- KANA -->
+<div id="s-kana" class="sc">
+  <div class="card">
+    <div class="ctitle">あ Tableaux des Kana</div>
+    <div class="pills">
+      <button class="pill on" onclick="setKana('hira',this)">あ Hiragana</button>
+      <button class="pill" onclick="setKana('kata',this)">ア Katakana</button>
+      <button class="pill" onclick="setKana('combo',this)">あ゛ Combinaisons</button>
+    </div>
+    <div class="kgrid" id="kanaGrid"></div>
+  </div>
+</div>
+
+<!-- KANJI -->
+<div id="s-kanji" class="sc">
+  <div class="card">
+    <div class="ctitle">漢 Kanji</div>
+    <div class="pills" id="kanjiPills">
+      <button class="pill on" onclick="setKanji('N5',this)">JLPT N5</button>
+      <button class="pill" onclick="setKanji('N4',this)">JLPT N4</button>
+      <button class="pill" onclick="setKanji('N3',this)">JLPT N3</button>
+    </div>
+    <div class="kajgrid" id="kanjiGrid"></div>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div id="s-grammar" class="sc">
+  <div class="card">
+    <div class="ctitle">📖 Grammaire</div>
+    <div class="pills">
+      <button class="pill on" onclick="setGram('N5',this)">N5</button>
+      <button class="pill" onclick="setGram('N4',this)">N4</button>
+      <button class="pill" onclick="setGram('N3',this)">N3</button>
+    </div>
+    <div id="gramList"></div>
+  </div>
+</div>
+
+<!-- VOCAB -->
+<div id="s-vocab" class="sc">
+  <div class="card">
+    <div class="ctitle">💬 Vocabulaire</div>
+    <div class="pills" id="vocabPills">
+      <button class="pill on" onclick="setVocab('salutations',this)">👋 Salutations</button>
+      <button class="pill" onclick="setVocab('chiffres',this)">🔢 Chiffres</button>
+      <button class="pill" onclick="setVocab('couleurs',this)">🎨 Couleurs</button>
+      <button class="pill" onclick="setVocab('corps',this)">🫀 Corps</button>
+      <button class="pill" onclick="setVocab('nature',this)">🌿 Nature</button>
+      <button class="pill" onclick="setVocab('nourriture',this)">🍱 Nourriture</button>
+      <button class="pill" onclick="setVocab('famille',this)">👨‍👩‍👧 Famille</button>
+      <button class="pill" onclick="setVocab('transport',this)">🚃 Transport</button>
+      <button class="pill" onclick="setVocab('temps',this)">⏰ Temps</button>
+      <button class="pill" onclick="setVocab('verbes',this)">⚡ Verbes</button>
+    </div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div id="s-flash" class="sc">
+  <div class="card">
+    <div class="ctitle">🃏 Flashcards</div>
+    <div class="pills">
+      <button class="pill on" onclick="setDeck('hira',this)">あ Hiragana</button>
+      <button class="pill" onclick="setDeck('kata',this)">ア Katakana</button>
+      <button class="pill" onclick="setDeck('kanji',this)">漢 Kanji N5</button>
+      <button class="pill" onclick="setDeck('vocab',this)">💬 Vocab</button>
+      <button class="pill" onclick="setDeck('all',this)">✨ Tout</button>
+    </div>
+    <div class="fc-prog" id="fcprog">Carte 1/46</div>
+    <div class="fcwrap">
+      <div class="fc" id="fccard" onclick="flipFC()">
+        <div class="face front"><span class="fkana" id="fckana">あ</span><span class="fhint">Tape pour révéler</span></div>
+        <div class="face back"><span class="from" id="fcrom">a</span><span class="fex" id="fcex">あおい = bleu</span></div>
+      </div>
+    </div>
+    <div class="fc-ctrl">
+      <button class="fcb bad" onclick="fcAns(false)">✗ À revoir</button>
+      <button class="fcb skip" onclick="fcSkip()">→ Passer</button>
+      <button class="fcb good" onclick="fcAns(true)">✓ Appris !</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="s-quiz" class="sc">
+  <div class="card">
+    <div class="ctitle">🎯 Quiz</div>
+    <div class="pills">
+      <button class="pill on" onclick="setQuizMode('hira',this)">あ Hira</button>
+      <button class="pill" onclick="setQuizMode('kata',this)">ア Kata</button>
+      <button class="pill" onclick="setQuizMode('kanji',this)">漢 Kanji</button>
+      <button class="pill" onclick="setQuizMode('vocab',this)">💬 Vocab</button>
+      <button class="pill" onclick="setQuizMode('mix',this)">🔀 Mix</button>
+    </div>
+    <div class="qscore"><div class="qs" style="color:var(--ok)">✓ <span id="qc">0</span></div><div class="qs" style="color:var(--err)">✗ <span id="qw">0</span></div></div>
+    <span class="qchar" id="qchar">あ</span>
+    <div class="qlbl" id="qlbl">Que signifie ce caractère ?</div>
+    <div class="qopts" id="qopts"></div>
+    <div class="qfb" id="qfb"></div>
+    <button class="qnext" id="qnext" onclick="nextQ()" style="display:none">Suivant →</button>
+  </div>
+</div>
+
+<!-- SRS -->
+<div id="s-srs" class="sc">
+  <div class="card">
+    <div class="ctitle">🔁 Répétition Espacée (SRS)</div>
+    <div class="srs-queue">🗂️ <span id="srsq">0</span> cartes à réviser aujourd'hui</div>
+    <div class="srs-info">Basé sur l'algorithme SM-2 — comme Anki !</div>
+    <div id="srsContent"></div>
+  </div>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div class="mover" id="mover" onclick="cm(event)">
+  <div class="modal">
+    <span class="m-char" id="mchar"></span>
+    <div class="m-title" id="mtitle"></div>
+    <div class="m-body" id="mbody"></div>
+    <button class="m-close" onclick="closeM()">Fermer ✕</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// DATA — HIRAGANA
+// ================================================================
+const H = [
+  {k:'あ',r:'a',ex:'あおい = bleu'},{k:'い',r:'i',ex:'いぬ = chien'},{k:'う',r:'u',ex:'うみ = mer'},{k:'え',r:'e',ex:'えき = gare'},{k:'お',r:'o',ex:'おかあさん = maman'},
+  {k:'か',r:'ka',ex:'かさ = parapluie'},{k:'き',r:'ki',ex:'きのこ = champignon'},{k:'く',r:'ku',ex:'くも = nuage'},{k:'け',r:'ke',ex:'けしき = paysage'},{k:'こ',r:'ko',ex:'こい = amour'},
+  {k:'さ',r:'sa',ex:'さくら = cerisier'},{k:'し',r:'shi',ex:'しろ = blanc'},{k:'す',r:'su',ex:'すし = sushi'},{k:'せ',r:'se',ex:'せかい = monde'},{k:'そ',r:'so',ex:'そら = ciel'},
+  {k:'た',r:'ta',ex:'たこ = pieuvre'},{k:'ち',r:'chi',ex:'ちず = carte'},{k:'つ',r:'tsu',ex:'つき = lune'},{k:'て',r:'te',ex:'てがみ = lettre'},{k:'と',r:'to',ex:'とり = oiseau'},
+  {k:'な',r:'na',ex:'なつ = été'},{k:'に',r:'ni',ex:'にわ = jardin'},{k:'ぬ',r:'nu',ex:'ぬの = tissu'},{k:'ね',r:'ne',ex:'ねこ = chat'},{k:'の',r:'no',ex:'のり = algue'},
+  {k:'は',r:'ha',ex:'はな = fleur'},{k:'ひ',r:'hi',ex:'ひかり = lumière'},{k:'ふ',r:'fu',ex:'ふじさん = mont Fuji'},{k:'へ',r:'he',ex:'へや = chambre'},{k:'ほ',r:'ho',ex:'ほし = étoile'},
+  {k:'ま',r:'ma',ex:'まち = ville'},{k:'み',r:'mi',ex:'みず = eau'},{k:'む',r:'mu',ex:'むし = insecte'},{k:'め',r:'me',ex:'めだか = poisson'},{k:'も',r:'mo',ex:'もり = forêt'},
+  {k:'や',r:'ya',ex:'やま = montagne'},{k:'ゆ',r:'yu',ex:'ゆき = neige'},{k:'よ',r:'yo',ex:'よる = nuit'},
+  {k:'ら',r:'ra',ex:'らいねん = l\'an prochain'},{k:'り',r:'ri',ex:'りんご = pomme'},{k:'る',r:'ru',ex:'るす = absent'},{k:'れ',r:'re',ex:'れんしゅう = entraînement'},{k:'ろ',r:'ro',ex:'ろうか = couloir'},
+  {k:'わ',r:'wa',ex:'わたし = moi'},{k:'を',r:'wo',ex:'(particule OD)'},{k:'ん',r:'n',ex:'(nasale finale)'}
+];
+
+// ================================================================
+// DATA — KATAKANA
+// ================================================================
+const K = [
+  {k:'ア',r:'a',ex:'アイス = glace'},{k:'イ',r:'i',ex:'イタリア = Italie'},{k:'ウ',r:'u',ex:'ウイルス = virus'},{k:'エ',r:'e',ex:'エレベーター = ascenseur'},{k:'オ',r:'o',ex:'オレンジ = orange'},
+  {k:'カ',r:'ka',ex:'カメラ = caméra'},{k:'キ',r:'ki',ex:'キス = baiser'},{k:'ク',r:'ku',ex:'クラス = classe'},{k:'ケ',r:'ke',ex:'ケーキ = gâteau'},{k:'コ',r:'ko',ex:'コーヒー = café'},
+  {k:'サ',r:'sa',ex:'サラダ = salade'},{k:'シ',r:'shi',ex:'シャツ = chemise'},{k:'ス',r:'su',ex:'スポーツ = sport'},{k:'セ',r:'se',ex:'セーター = pull'},{k:'ソ',r:'so',ex:'ソファ = canapé'},
+  {k:'タ',r:'ta',ex:'タクシー = taxi'},{k:'チ',r:'chi',ex:'チョコ = chocolat'},{k:'ツ',r:'tsu',ex:'ツアー = tour'},{k:'テ',r:'te',ex:'テレビ = télévision'},{k:'ト',r:'to',ex:'トマト = tomate'},
+  {k:'ナ',r:'na',ex:'ナイフ = couteau'},{k:'ニ',r:'ni',ex:'ニュース = actualités'},{k:'ヌ',r:'nu',ex:'ヌードル = nouilles'},{k:'ネ',r:'ne',ex:'ネクタイ = cravate'},{k:'ノ',r:'no',ex:'ノート = cahier'},
+  {k:'ハ',r:'ha',ex:'ハム = jambon'},{k:'ヒ',r:'hi',ex:'ヒーロー = héros'},{k:'フ',r:'fu',ex:'フランス = France'},{k:'ヘ',r:'he',ex:'ヘルメット = casque'},{k:'ホ',r:'ho',ex:'ホテル = hôtel'},
+  {k:'マ',r:'ma',ex:'マンガ = manga'},{k:'ミ',r:'mi',ex:'ミルク = lait'},{k:'ム',r:'mu',ex:'ムービー = film'},{k:'メ',r:'me',ex:'メール = email'},{k:'モ',r:'mo',ex:'モデル = modèle'},
+  {k:'ヤ',r:'ya',ex:'ヤクルト = Yakult'},{k:'ユ',r:'yu',ex:'ユーロ = euro'},{k:'ヨ',r:'yo',ex:'ヨーグルト = yaourt'},
+  {k:'ラ',r:'ra',ex:'ラーメン = ramen'},{k:'リ',r:'ri',ex:'リモコン = télécommande'},{k:'ル',r:'ru',ex:'ルール = règle'},{k:'レ',r:'re',ex:'レストラン = restaurant'},{k:'ロ',r:'ro',ex:'ロボット = robot'},
+  {k:'ワ',r:'wa',ex:'ワイン = vin'},{k:'ヲ',r:'wo',ex:'(particule)'},{k:'ン',r:'n',ex:'(nasale)'}
+];
+
+// Combinaisons (dakuten + handakuten + youon)
+const COMBO = [
+  {k:'が',r:'ga',ex:'がっこう = école'},{k:'ぎ',r:'gi',ex:'ぎんこう = banque'},{k:'ぐ',r:'gu',ex:'ぐち = entrée'},{k:'げ',r:'ge',ex:'げんき = en forme'},{k:'ご',r:'go',ex:'ごはん = riz'},
+  {k:'ざ',r:'za',ex:'ざっし = magazine'},{k:'じ',r:'ji',ex:'じかん = temps'},{k:'ず',r:'zu',ex:'ずつう = mal de tête'},{k:'ぜ',r:'ze',ex:'ぜひ = absolument'},{k:'ぞ',r:'zo',ex:'ぞう = éléphant 🐘'},
+  {k:'だ',r:'da',ex:'だいがく = université'},{k:'ぢ',r:'di',ex:'(rare)'},{k:'づ',r:'du',ex:'(rare)'},{k:'で',r:'de',ex:'でんしゃ = train'},{k:'ど',r:'do',ex:'どこ = où'},
+  {k:'ば',r:'ba',ex:'ばら = rose'},{k:'び',r:'bi',ex:'びじゅつ = beaux-arts'},{k:'ぶ',r:'bu',ex:'ぶどう = raisin'},{k:'べ',r:'be',ex:'べんきょう = étude'},{k:'ぼ',r:'bo',ex:'ぼうし = chapeau'},
+  {k:'ぱ',r:'pa',ex:'ぱん = pain'},{k:'ぴ',r:'pi',ex:'ぴかぴか = brillant'},{k:'ぷ',r:'pu',ex:'ぷーる = piscine'},{k:'ぺ',r:'pe',ex:'ぺん = stylo'},{k:'ぽ',r:'po',ex:'ぽすと = boîte aux lettres'},
+  {k:'きゃ',r:'kya',ex:'きゃく = invité'},{k:'きゅ',r:'kyu',ex:'きゅうり = concombre'},{k:'きょ',r:'kyo',ex:'きょうと = Kyoto'},
+  {k:'しゃ',r:'sha',ex:'しゃしん = photo'},{k:'しゅ',r:'shu',ex:'しゅみ = loisir'},{k:'しょ',r:'sho',ex:'しょくどう = réfectoire'},
+  {k:'ちゃ',r:'cha',ex:'おちゃ = thé'},{k:'ちゅ',r:'chu',ex:'ちゅうごく = Chine'},{k:'ちょ',r:'cho',ex:'ちょっと = un peu'},
+  {k:'にゃ',r:'nya',ex:'にゃー = miaou'},{k:'にゅ',r:'nyu',ex:'にゅうがく = entrée école'},{k:'にょ',r:'nyo',ex:'(rare)'},
+  {k:'ひゃ',r:'hya',ex:'ひゃく = cent'},{k:'ひゅ',r:'hyu',ex:'(rare)'},{k:'ひょ',r:'hyo',ex:'ひょう = grêle'},
+  {k:'みゃ',r:'mya',ex:'(rare)'},{k:'みゅ',r:'myu',ex:'(rare)'},{k:'みょ',r:'myo',ex:'みょうじ = nom de famille'},
+  {k:'りゃ',r:'rya',ex:'(rare)'},{k:'りゅ',r:'ryu',ex:'りゅう = dragon'},{k:'りょ',r:'ryo',ex:'りょこう = voyage'},
+  {k:'ぎゃ',r:'gya',ex:'ぎゃく = inverse'},{k:'じゃ',r:'ja',ex:'じゃあ = bon alors'},{k:'びゃ',r:'bya',ex:'(rare)'},{k:'ぴゃ',r:'pya',ex:'(rare)'}
+];
+
+// ================================================================
+// DATA — KANJI N5 (80)
+// ================================================================
+const KJ_N5 = [
+  {k:'日',on:'ニチ・ジツ',kun:'ひ・か',m:'Soleil / Jour'},{k:'月',on:'ゲツ・ガツ',kun:'つき',m:'Lune / Mois'},
+  {k:'火',on:'カ',kun:'ひ',m:'Feu'},{k:'水',on:'スイ',kun:'みず',m:'Eau'},
+  {k:'木',on:'モク',kun:'き',m:'Arbre'},{k:'金',on:'キン',kun:'かね',m:'Or'},
+  {k:'土',on:'ド',kun:'つち',m:'Terre'},{k:'山',on:'サン',kun:'やま',m:'Montagne'},
+  {k:'川',on:'セン',kun:'かわ',m:'Rivière'},{k:'田',on:'デン',kun:'た',m:'Rizière'},
+  {k:'人',on:'ジン',kun:'ひと',m:'Personne'},{k:'大',on:'ダイ',kun:'おお',m:'Grand'},
+  {k:'小',on:'ショウ',kun:'ちい',m:'Petit'},{k:'上',on:'ジョウ',kun:'うえ',m:'Dessus'},
+  {k:'下',on:'カ',kun:'した',m:'Dessous'},{k:'中',on:'チュウ',kun:'なか',m:'Milieu'},
+  {k:'国',on:'コク',kun:'くに',m:'Pays'},{k:'年',on:'ネン',kun:'とし',m:'Année'},
+  {k:'学',on:'ガク',kun:'まな',m:'Étudier'},{k:'生',on:'セイ',kun:'い',m:'Vie / Naître'},
+  {k:'先',on:'セン',kun:'さき',m:'Avant'},{k:'名',on:'メイ',kun:'な',m:'Nom'},
+  {k:'気',on:'キ',kun:'き',m:'Esprit'},{k:'電',on:'デン',kun:'',m:'Électricité'},
+  {k:'車',on:'シャ',kun:'くるま',m:'Voiture'},{k:'語',on:'ゴ',kun:'かた',m:'Langue'},
+  {k:'書',on:'ショ',kun:'か',m:'Écrire'},{k:'読',on:'ドク',kun:'よ',m:'Lire'},
+  {k:'見',on:'ケン',kun:'み',m:'Voir'},{k:'食',on:'ショク',kun:'た',m:'Manger'},
+  {k:'飲',on:'イン',kun:'の',m:'Boire'},{k:'行',on:'コウ',kun:'い',m:'Aller'},
+  {k:'来',on:'ライ',kun:'く',m:'Venir'},{k:'出',on:'シュツ',kun:'で',m:'Sortir'},
+  {k:'入',on:'ニュウ',kun:'い',m:'Entrer'},{k:'白',on:'ハク',kun:'しろ',m:'Blanc'},
+  {k:'黒',on:'コク',kun:'くろ',m:'Noir'},{k:'赤',on:'セキ',kun:'あか',m:'Rouge'},
+  {k:'青',on:'セイ',kun:'あお',m:'Bleu'},{k:'高',on:'コウ',kun:'たか',m:'Haut'},
+  {k:'安',on:'アン',kun:'やす',m:'Bon marché'},{k:'新',on:'シン',kun:'あたら',m:'Nouveau'},
+  {k:'古',on:'コ',kun:'ふる',m:'Vieux'},{k:'長',on:'チョウ',kun:'なが',m:'Long'},
+  {k:'好',on:'コウ',kun:'す',m:'Aimer'},{k:'友',on:'ユウ',kun:'とも',m:'Ami'},
+  {k:'父',on:'フ',kun:'ちち',m:'Père'},{k:'母',on:'ボ',kun:'はは',m:'Mère'},
+  {k:'子',on:'シ',kun:'こ',m:'Enfant'},{k:'男',on:'ダン',kun:'おとこ',m:'Homme'},
+  {k:'女',on:'ジョ',kun:'おんな',m:'Femme'},{k:'花',on:'カ',kun:'はな',m:'Fleur'},
+  {k:'空',on:'クウ',kun:'そら',m:'Ciel'},{k:'海',on:'カイ',kun:'うみ',m:'Mer'},
+  {k:'道',on:'ドウ',kun:'みち',m:'Chemin'},{k:'時',on:'ジ',kun:'とき',m:'Heure'},
+  {k:'間',on:'カン',kun:'あいだ',m:'Entre'},{k:'何',on:'カ',kun:'なに',m:'Quoi'},
+  {k:'円',on:'エン',kun:'まる',m:'Yen'},{k:'百',on:'ヒャク',kun:'',m:'Cent'},
+  {k:'千',on:'セン',kun:'ち',m:'Mille'},{k:'万',on:'マン',kun:'',m:'Dix mille'},
+  {k:'一',on:'イチ',kun:'ひと',m:'Un'},{k:'二',on:'ニ',kun:'ふた',m:'Deux'},
+  {k:'三',on:'サン',kun:'み',m:'Trois'},{k:'四',on:'シ',kun:'よ',m:'Quatre'},
+  {k:'五',on:'ゴ',kun:'いつ',m:'Cinq'},{k:'六',on:'ロク',kun:'む',m:'Six'},
+  {k:'七',on:'シチ',kun:'なな',m:'Sept'},{k:'八',on:'ハチ',kun:'や',m:'Huit'},
+  {k:'九',on:'ク',kun:'ここの',m:'Neuf'},{k:'十',on:'ジュウ',kun:'とお',m:'Dix'},
+  {k:'口',on:'コウ',kun:'くち',m:'Bouche'},{k:'手',on:'シュ',kun:'て',m:'Main'},
+  {k:'目',on:'モク',kun:'め',m:'Œil'},{k:'耳',on:'ジ',kun:'みみ',m:'Oreille'},
+  {k:'足',on:'ソク',kun:'あし',m:'Pied'},{k:'本',on:'ホン',kun:'もと',m:'Livre'},
+  {k:'雨',on:'ウ',kun:'あめ',m:'Pluie'},{k:'林',on:'リン',kun:'はやし',m:'Bosquet'}
+];
+
+// KANJI N4
+const KJ_N4 = [
+  {k:'悪',on:'アク',kun:'わる',m:'Mauvais'},{k:'暗',on:'アン',kun:'くら',m:'Sombre'},
+  {k:'医',on:'イ',kun:'',m:'Médecine'},{k:'意',on:'イ',kun:'',m:'Intention'},
+  {k:'映',on:'エイ',kun:'うつ',m:'Refléter'},{k:'英',on:'エイ',kun:'',m:'Anglais'},
+  {k:'駅',on:'エキ',kun:'',m:'Gare'},{k:'音',on:'オン',kun:'おと',m:'Son'},
+  {k:'家',on:'カ',kun:'いえ',m:'Maison'},{k:'会',on:'カイ',kun:'あ',m:'Rencontrer'},
+  {k:'海',on:'カイ',kun:'うみ',m:'Mer'},{k:'回',on:'カイ',kun:'まわ',m:'Tour'},
+  {k:'開',on:'カイ',kun:'ひら',m:'Ouvrir'},{k:'界',on:'カイ',kun:'',m:'Monde'},
+  {k:'楽',on:'ガク',kun:'たの',m:'Musique/Facile'},{k:'活',on:'カツ',kun:'',m:'Activité'},
+  {k:'漢',on:'カン',kun:'',m:'Han/Chinois'},{k:'館',on:'カン',kun:'',m:'Bâtiment'},
+  {k:'帰',on:'キ',kun:'かえ',m:'Rentrer'},{k:'牛',on:'ギュウ',kun:'うし',m:'Vache'},
+  {k:'京',on:'キョウ',kun:'',m:'Capitale'},{k:'兄',on:'ケイ',kun:'あに',m:'Grand frère'},
+  {k:'形',on:'ケイ',kun:'かたち',m:'Forme'},{k:'計',on:'ケイ',kun:'はか',m:'Calculer'},
+  {k:'犬',on:'ケン',kun:'いぬ',m:'Chien'},{k:'元',on:'ゲン',kun:'もと',m:'Origine'},
+  {k:'工',on:'コウ',kun:'',m:'Travail'},{k:'広',on:'コウ',kun:'ひろ',m:'Large'},
+  {k:'交',on:'コウ',kun:'まじ',m:'Croiser'},{k:'光',on:'コウ',kun:'ひかり',m:'Lumière'}
+];
+
+// KANJI N3
+const KJ_N3 = [
+  {k:'愛',on:'アイ',kun:'あい',m:'Amour'},{k:'案',on:'アン',kun:'',m:'Proposition'},
+  {k:'以',on:'イ',kun:'',m:'Par rapport à'},{k:'位',on:'イ',kun:'くらい',m:'Position'},
+  {k:'印',on:'イン',kun:'しるし',m:'Marque'},{k:'員',on:'イン',kun:'',m:'Membre'},
+  {k:'院',on:'イン',kun:'',m:'Institution'},{k:'引',on:'イン',kun:'ひ',m:'Tirer'},
+  {k:'運',on:'ウン',kun:'はこ',m:'Transporter/Chance'},{k:'泳',on:'エイ',kun:'およ',m:'Nager'},
+  {k:'央',on:'オウ',kun:'',m:'Centre'},{k:'応',on:'オウ',kun:'こた',m:'Répondre'},
+  {k:'横',on:'オウ',kun:'よこ',m:'Horizontal'},{k:'屋',on:'オク',kun:'や',m:'Magasin/Toit'},
+  {k:'温',on:'オン',kun:'あたた',m:'Chaud/Tiède'},{k:'化',on:'カ',kun:'ば',m:'Transformer'},
+  {k:'歌',on:'カ',kun:'うた',m:'Chanson'},{k:'課',on:'カ',kun:'',m:'Section'},
+  {k:'改',on:'カイ',kun:'あらた',m:'Réformer'},{k:'格',on:'カク',kun:'',m:'Rang/Cadre'},
+  {k:'確',on:'カク',kun:'たし',m:'Certain'},{k:'割',on:'カツ',kun:'わ',m:'Diviser'},
+  {k:'感',on:'カン',kun:'',m:'Sentiment'},{k:'関',on:'カン',kun:'せき',m:'Barricade'},
+  {k:'観',on:'カン',kun:'み',m:'Observer'},{k:'願',on:'ガン',kun:'ねが',m:'Désirer'},
+  {k:'喜',on:'キ',kun:'よろこ',m:'Se réjouir'},{k:'機',on:'キ',kun:'はた',m:'Machine'},
+  {k:'記',on:'キ',kun:'しる',m:'Enregistrer'},{k:'技',on:'ギ',kun:'わざ',m:'Technique'}
+];
+
+// ================================================================
+// DATA — GRAMMAIRE
+// ================================================================
+const GRAM = {
+N5:[
+  {title:'～は ～です (Phrase nominale)',struct:'[Sujet]は [Nom/Adj]です',ex:'わたしはがくせいです。',rom:'Watashi wa gakusei desu.',fr:'Je suis étudiant.',detail:'は (wa) marque le sujet. です (desu) est le copule formel.',jlpt:'N5'},
+  {title:'～が あります / います',struct:'[Chose]が あります / [Être vivant]が います',ex:'つくえの うえに ほんが あります。',rom:'Tsukue no ue ni hon ga arimasu.',fr:'Il y a un livre sur le bureau.',detail:'あります pour les choses inanimées, います pour les êtres vivants.',jlpt:'N5'},
+  {title:'～を ～ます (Verbe transitif)',struct:'[Sujet]は [Objet]を [Verbe-ます]',ex:'わたしは みずを のみます。',rom:'Watashi wa mizu wo nomimasu.',fr:'Je bois de l\'eau.',detail:'を (wo) marque le complément d\'objet direct.',jlpt:'N5'},
+  {title:'～に いきます (Direction)',struct:'[Lieu]に いきます/きます/かえります',ex:'がっこうに いきます。',rom:'Gakkou ni ikimasu.',fr:'Je vais à l\'école.',detail:'に indique la destination avec les verbes de déplacement.',jlpt:'N5'},
+  {title:'～で ～ます (Lieu d\'action)',struct:'[Lieu]で [Action]',ex:'としょかんで べんきょうします。',rom:'Toshokan de benkyou shimasu.',fr:'J\'étudie à la bibliothèque.',detail:'で indique le lieu où se déroule une action.',jlpt:'N5'},
+  {title:'～の (Particule possessive)',struct:'[A]の [B] = le B de A',ex:'これは わたしの ほんです。',rom:'Kore wa watashi no hon desu.',fr:'C\'est mon livre.',detail:'の exprime la possession, l\'appartenance, ou la qualification.',jlpt:'N5'},
+  {title:'～も (aussi)',struct:'[A]も ～',ex:'わたしも がくせいです。',rom:'Watashi mo gakusei desu.',fr:'Moi aussi, je suis étudiant.',detail:'も remplace は ou が pour signifier "aussi".',jlpt:'N5'},
+  {title:'～ない (forme négative)',struct:'[Verbe]ない',ex:'たべない。/ たべません。',rom:'Tabenai. / Tabemasen.',fr:'Je ne mange pas.',detail:'Forme négative courante (-ない) et polie (-ません).',jlpt:'N5'},
+  {title:'～たい (vouloir faire)',struct:'[Verbe masu-stem]たい',ex:'すしを たべたいです。',rom:'Sushi wo tabetai desu.',fr:'Je veux manger des sushis.',detail:'たい s\'attache à la base -masu du verbe. Se conjugue comme un adjectif en -i.',jlpt:'N5'},
+  {title:'～て ください (S\'il vous plaît)',struct:'[Verbe-て]ください',ex:'ここに かいてください。',rom:'Koko ni kaite kudasai.',fr:'Veuillez écrire ici.',detail:'La forme en て + ください exprime une demande polie.',jlpt:'N5'},
+],
+N4:[
+  {title:'～ている (action en cours / état)',struct:'[Verbe-て]いる',ex:'いま ごはんを たべています。',rom:'Ima gohan wo tabete imasu.',fr:'Je suis en train de manger.',detail:'Exprime une action en cours OU un état résultant d\'une action passée.',jlpt:'N4'},
+  {title:'～てもいい (permission)',struct:'[Verbe-て]もいい',ex:'ここで しゃしんを とってもいいですか？',rom:'Koko de shashin wo totte mo ii desu ka?',fr:'Puis-je prendre une photo ici ?',detail:'Demande ou accorde une permission.',jlpt:'N4'},
+  {title:'～てはいけない (interdiction)',struct:'[Verbe-て]はいけない',ex:'ここで たばこを すってはいけません。',rom:'Koko de tabako wo sutte wa ikemasen.',fr:'Il est interdit de fumer ici.',detail:'Exprime une interdiction.',jlpt:'N4'},
+  {title:'～なければならない (obligation)',struct:'[Verbe-nai stem]なければならない',ex:'はやく いかなければなりません。',rom:'Hayaku ikanakere ba narimasen.',fr:'Je dois partir vite.',detail:'Exprime l\'obligation. Version abrégée : ～なきゃ.',jlpt:'N4'},
+  {title:'～た ことが ある (expérience)',struct:'[Verbe-た]ことがある',ex:'にほんに いったことがあります。',rom:'Nihon ni itta koto ga arimasu.',fr:'Je suis déjà allé au Japon.',detail:'Indique qu\'on a déjà vécu cette expérience.',jlpt:'N4'},
+  {title:'～と思う (penser que)',struct:'[phrase]と おもう',ex:'あしたは あめだと おもいます。',rom:'Ashita wa ame da to omoimasu.',fr:'Je pense qu\'il va pleuvoir demain.',detail:'と思う exprime une opinion ou supposition personnelle.',jlpt:'N4'},
+  {title:'～そう (avoir l\'air de)',struct:'[Adj/Verbe-stem]そう',ex:'このりょうりは おいしそうです。',rom:'Kono ryouri wa oishi-sou desu.',fr:'Ce plat a l\'air délicieux.',detail:'そう exprime une apparence basée sur l\'observation visuelle.',jlpt:'N4'},
+  {title:'～ために (but / cause)',struct:'[Verbe dict.]ために',ex:'にほんごを べんきょうするために にほんへ きました。',rom:'Nihongo wo benkyou suru tame ni Nihon e kimashita.',fr:'Je suis venu au Japon pour étudier le japonais.',detail:'Pour le but : verbe dict. + ために. Pour la cause : nom + のために.',jlpt:'N4'},
+],
+N3:[
+  {title:'～ば (conditionnel)',struct:'[Verbe-ba form]ば',ex:'おかねが あれば、かいます。',rom:'Okane ga areba, kaimasu.',fr:'Si j\'ai de l\'argent, j\'achèterai.',detail:'La forme conditionnelle en ～ば exprime une condition hypothétique.',jlpt:'N3'},
+  {title:'～のに (alors que / pourtant)',struct:'[phrase A]のに [phrase B]',ex:'べんきょうしたのに、しけんに おちた。',rom:'Benkyou shita noni, shiken ni ochita.',fr:'J\'ai étudié pourtant j\'ai raté l\'examen.',detail:'Exprime la déception ou le contraste entre deux faits.',jlpt:'N3'},
+  {title:'～ようだ / ～みたいだ (sembler)',struct:'[phrase]ようだ / みたいだ',ex:'かれは つかれているようです。',rom:'Kare wa tsukarete iru you desu.',fr:'Il semble fatigué.',detail:'Exprime une apparence ou déduction basée sur des indices.',jlpt:'N3'},
+  {title:'～ながら (pendant que / tout en)',struct:'[Verbe masu-stem]ながら [action principale]',ex:'おんがくを ききながら べんきょうする。',rom:'Ongaku wo kiki nagara benkyou suru.',fr:'J\'étudie en écoutant de la musique.',detail:'Deux actions simultanées par le même sujet. L\'action principale est la 2e.',jlpt:'N3'},
+  {title:'～らしい (il paraît que)',struct:'[phrase]らしい',ex:'かれは にほんじんらしい。',rom:'Kare wa Nihonjin rashii.',fr:'Il paraît qu\'il est japonais.',detail:'Exprime une déduction ou une ouïe-dire. Différent de ようだ (basé sur l\'observation).',jlpt:'N3'},
+  {title:'～だけ (seulement)',struct:'[Nom/Verbe]だけ',ex:'すこしだけ たべました。',rom:'Sukoshi dake tabemashita.',fr:'J\'en ai mangé juste un peu.',detail:'だけ exprime la limitation ou la restriction.',jlpt:'N3'},
+]
+};
+
+// ================================================================
+// DATA — VOCABULAIRE
+// ================================================================
+const VOC = {
+salutations:[
+  {jp:'こんにちは',r:'konnichiwa',fr:'Bonjour',cat:'📢'},{jp:'おはようございます',r:'ohayou gozaimasu',fr:'Bonjour (matin)',cat:'📢'},
+  {jp:'こんばんは',r:'konbanwa',fr:'Bonsoir',cat:'📢'},{jp:'さようなら',r:'sayounara',fr:'Au revoir',cat:'📢'},
+  {jp:'ありがとう',r:'arigatou',fr:'Merci',cat:'📢'},{jp:'すみません',r:'sumimasen',fr:'Excusez-moi',cat:'📢'},
+  {jp:'はい',r:'hai',fr:'Oui',cat:'📢'},{jp:'いいえ',r:'iie',fr:'Non',cat:'📢'},
+  {jp:'どうぞ',r:'douzo',fr:'Je vous en prie',cat:'📢'},{jp:'おねがいします',r:'onegaishimasu',fr:'S\'il vous plaît',cat:'📢'},
+  {jp:'いただきます',r:'itadakimasu',fr:'Bon appétit (avant)',cat:'📢'},{jp:'ごちそうさま',r:'gochisousama',fr:'Merci pour le repas',cat:'📢'},
+],
+chiffres:[
+  {jp:'ゼロ / 零',r:'zero/rei',fr:'Zéro',cat:'🔢'},{jp:'一 (いち)',r:'ichi',fr:'Un',cat:'🔢'},
+  {jp:'二 (に)',r:'ni',fr:'Deux',cat:'🔢'},{jp:'三 (さん)',r:'san',fr:'Trois',cat:'🔢'},
+  {jp:'四 (し/よん)',r:'shi/yon',fr:'Quatre',cat:'🔢'},{jp:'五 (ご)',r:'go',fr:'Cinq',cat:'🔢'},
+  {jp:'六 (ろく)',r:'roku',fr:'Six',cat:'🔢'},{jp:'七 (しち/なな)',r:'shichi/nana',fr:'Sept',cat:'🔢'},
+  {jp:'八 (はち)',r:'hachi',fr:'Huit',cat:'🔢'},{jp:'九 (く/きゅう)',r:'ku/kyuu',fr:'Neuf',cat:'🔢'},
+  {jp:'十 (じゅう)',r:'juu',fr:'Dix',cat:'🔢'},{jp:'百 (ひゃく)',r:'hyaku',fr:'Cent',cat:'🔢'},
+  {jp:'千 (せん)',r:'sen',fr:'Mille',cat:'🔢'},{jp:'万 (まん)',r:'man',fr:'Dix mille',cat:'🔢'},
+],
+couleurs:[
+  {jp:'赤 (あか)',r:'aka',fr:'Rouge',cat:'🎨'},{jp:'青 (あお)',r:'ao',fr:'Bleu',cat:'🎨'},
+  {jp:'白 (しろ)',r:'shiro',fr:'Blanc',cat:'🎨'},{jp:'黒 (くろ)',r:'kuro',fr:'Noir',cat:'🎨'},
+  {jp:'黄色 (きいろ)',r:'kiiro',fr:'Jaune',cat:'🎨'},{jp:'緑 (みどり)',r:'midori',fr:'Vert',cat:'🎨'},
+  {jp:'紫 (むらさき)',r:'murasaki',fr:'Violet',cat:'🎨'},{jp:'橙 (オレンジ)',r:'orenji',fr:'Orange',cat:'🎨'},
+  {jp:'ピンク',r:'pinku',fr:'Rose',cat:'🎨'},{jp:'茶色 (ちゃいろ)',r:'chairo',fr:'Marron',cat:'🎨'},
+],
+corps:[
+  {jp:'頭 (あたま)',r:'atama',fr:'Tête',cat:'🫀'},{jp:'目 (め)',r:'me',fr:'Œil',cat:'🫀'},
+  {jp:'耳 (みみ)',r:'mimi',fr:'Oreille',cat:'🫀'},{jp:'鼻 (はな)',r:'hana',fr:'Nez',cat:'🫀'},
+  {jp:'口 (くち)',r:'kuchi',fr:'Bouche',cat:'🫀'},{jp:'手 (て)',r:'te',fr:'Main',cat:'🫀'},
+  {jp:'足 (あし)',r:'ashi',fr:'Pied/Jambe',cat:'🫀'},{jp:'腕 (うで)',r:'ude',fr:'Bras',cat:'🫀'},
+  {jp:'体 (からだ)',r:'karada',fr:'Corps',cat:'🫀'},{jp:'心臓 (しんぞう)',r:'shinzou',fr:'Cœur',cat:'🫀'},
+],
+nature:[
+  {jp:'空 (そら)',r:'sora',fr:'Ciel',cat:'🌿'},{jp:'海 (うみ)',r:'umi',fr:'Mer',cat:'🌿'},
+  {jp:'山 (やま)',r:'yama',fr:'Montagne',cat:'🌿'},{jp:'川 (かわ)',r:'kawa',fr:'Rivière',cat:'🌿'},
+  {jp:'花 (はな)',r:'hana',fr:'Fleur',cat:'🌿'},{jp:'木 (き)',r:'ki',fr:'Arbre',cat:'🌿'},
+  {jp:'雨 (あめ)',r:'ame',fr:'Pluie',cat:'🌿'},{jp:'雪 (ゆき)',r:'yuki',fr:'Neige',cat:'🌿'},
+  {jp:'風 (かぜ)',r:'kaze',fr:'Vent',cat:'🌿'},{jp:'太陽 (たいよう)',r:'taiyou',fr:'Soleil',cat:'🌿'},
+],
+nourriture:[
+  {jp:'すし',r:'sushi',fr:'Sushi',cat:'🍱'},{jp:'ラーメン',r:'raamen',fr:'Ramen',cat:'🍱'},
+  {jp:'うどん',r:'udon',fr:'Udon',cat:'🍱'},{jp:'てんぷら',r:'tenpura',fr:'Tempura',cat:'🍱'},
+  {jp:'おにぎり',r:'onigiri',fr:'Onigiri',cat:'🍱'},{jp:'みそしる',r:'misoshiru',fr:'Soupe miso',cat:'🍱'},
+  {jp:'さしみ',r:'sashimi',fr:'Sashimi',cat:'🍱'},{jp:'たこやき',r:'takoyaki',fr:'Takoyaki',cat:'🍱'},
+  {jp:'おちゃ',r:'ocha',fr:'Thé vert',cat:'🍱'},{jp:'さけ',r:'sake',fr:'Saké',cat:'🍱'},
+],
+famille:[
+  {jp:'父 (ちち)',r:'chichi',fr:'Mon père',cat:'👨‍👩‍👧'},{jp:'母 (はは)',r:'haha',fr:'Ma mère',cat:'👨‍👩‍👧'},
+  {jp:'兄 (あに)',r:'ani',fr:'Mon grand frère',cat:'👨‍👩‍👧'},{jp:'姉 (あね)',r:'ane',fr:'Ma grande sœur',cat:'👨‍👩‍👧'},
+  {jp:'弟 (おとうと)',r:'otouto',fr:'Mon petit frère',cat:'👨‍👩‍👧'},{jp:'妹 (いもうと)',r:'imouto',fr:'Ma petite sœur',cat:'👨‍👩‍👧'},
+  {jp:'子供 (こども)',r:'kodomo',fr:'Enfant',cat:'👨‍👩‍👧'},{jp:'祖父 (そふ)',r:'sofu',fr:'Grand-père',cat:'👨‍👩‍👧'},
+  {jp:'祖母 (そぼ)',r:'sobo',fr:'Grand-mère',cat:'👨‍👩‍👧'},{jp:'家族 (かぞく)',r:'kazoku',fr:'Famille',cat:'👨‍👩‍👧'},
+],
+transport:[
+  {jp:'電車 (でんしゃ)',r:'densha',fr:'Train',cat:'🚃'},{jp:'バス',r:'basu',fr:'Bus',cat:'🚃'},
+  {jp:'タクシー',r:'takushii',fr:'Taxi',cat:'🚃'},{jp:'飛行機 (ひこうき)',r:'hikouki',fr:'Avion',cat:'🚃'},
+  {jp:'船 (ふね)',r:'fune',fr:'Bateau',cat:'🚃'},{jp:'自転車 (じてんしゃ)',r:'jitensha',fr:'Vélo',cat:'🚃'},
+  {jp:'駅 (えき)',r:'eki',fr:'Gare',cat:'🚃'},{jp:'空港 (くうこう)',r:'kuukou',fr:'Aéroport',cat:'🚃'},
+],
+temps:[
+  {jp:'今日 (きょう)',r:'kyou',fr:'Aujourd\'hui',cat:'⏰'},{jp:'明日 (あした)',r:'ashita',fr:'Demain',cat:'⏰'},
+  {jp:'昨日 (きのう)',r:'kinou',fr:'Hier',cat:'⏰'},{jp:'今 (いま)',r:'ima',fr:'Maintenant',cat:'⏰'},
+  {jp:'朝 (あさ)',r:'asa',fr:'Matin',cat:'⏰'},{jp:'昼 (ひる)',r:'hiru',fr:'Midi/Après-midi',cat:'⏰'},
+  {jp:'夜 (よる)',r:'yoru',fr:'Soir/Nuit',cat:'⏰'},{jp:'週 (しゅう)',r:'shuu',fr:'Semaine',cat:'⏰'},
+  {jp:'月曜日',r:'getsuyoubi',fr:'Lundi',cat:'⏰'},{jp:'火曜日',r:'kayoubi',fr:'Mardi',cat:'⏰'},
+  {jp:'水曜日',r:'suiyoubi',fr:'Mercredi',cat:'⏰'},{jp:'木曜日',r:'mokuyoubi',fr:'Jeudi',cat:'⏰'},
+  {jp:'金曜日',r:'kin\'youbi',fr:'Vendredi',cat:'⏰'},{jp:'土曜日',r:'doyoubi',fr:'Samedi',cat:'⏰'},
+  {jp:'日曜日',r:'nichiyoubi',fr:'Dimanche',cat:'⏰'},
+],
+verbes:[
+  {jp:'食べる (たべる)',r:'taberu',fr:'Manger',cat:'⚡'},{jp:'飲む (のむ)',r:'nomu',fr:'Boire',cat:'⚡'},
+  {jp:'行く (いく)',r:'iku',fr:'Aller',cat:'⚡'},{jp:'来る (くる)',r:'kuru',fr:'Venir',cat:'⚡'},
+  {jp:'見る (みる)',r:'miru',fr:'Voir/Regarder',cat:'⚡'},{jp:'聞く (きく)',r:'kiku',fr:'Entendre/Écouter',cat:'⚡'},
+  {jp:'話す (はなす)',r:'hanasu',fr:'Parler',cat:'⚡'},{jp:'書く (かく)',r:'kaku',fr:'Écrire',cat:'⚡'},
+  {jp:'読む (よむ)',r:'yomu',fr:'Lire',cat:'⚡'},{jp:'買う (かう)',r:'kau',fr:'Acheter',cat:'⚡'},
+  {jp:'起きる (おきる)',r:'okiru',fr:'Se lever',cat:'⚡'},{jp:'寝る (ねる)',r:'neru',fr:'Dormir',cat:'⚡'},
+  {jp:'する',r:'suru',fr:'Faire',cat:'⚡'},{jp:'ある',r:'aru',fr:'Exister (chose)',cat:'⚡'},
+  {jp:'いる',r:'iru',fr:'Exister (être vivant)',cat:'⚡'},{jp:'わかる',r:'wakaru',fr:'Comprendre',cat:'⚡'},
+]
+};
+
+// ================================================================
+// DATA — LESSONS PARCOURS
+// ================================================================
+const LESSONS = [
+  {id:'l1',title:'Les Hiragana — Voyelles',icon:'あ',desc:'a i u e o — Les 5 voyelles de base',lvl:'N5',content:'hira_vowels'},
+  {id:'l2',title:'Les Hiragana — Ka-Ko / Sa-So',icon:'か',desc:'Lignes K et S',lvl:'N5',content:'hira_ks'},
+  {id:'l3',title:'Les Hiragana — Ta-To / Na-No',icon:'た',desc:'Lignes T et N',lvl:'N5',content:'hira_tn'},
+  {id:'l4',title:'Les Hiragana — Ha-Ho / Ma-Mo',icon:'は',desc:'Lignes H et M',lvl:'N5',content:'hira_hm'},
+  {id:'l5',title:'Les Hiragana — Ya/Yu/Yo + Ra-Ro',icon:'や',desc:'Lignes Y et R',lvl:'N5',content:'hira_yr'},
+  {id:'l6',title:'Les Hiragana — Wa/Wo/N',icon:'わ',desc:'Fin des hiragana + révision',lvl:'N5',content:'hira_wn'},
+  {id:'l7',title:'Les Katakana — Voyelles',icon:'ア',desc:'A I U E O en katakana',lvl:'N5',content:'kata_vowels'},
+  {id:'l8',title:'Les Katakana — Ka-Ko à Na-No',icon:'カ',desc:'Lignes K, S, T, N',lvl:'N5',content:'kata_ks'},
+  {id:'l9',title:'Les Katakana — Ha-Ho à N',icon:'ハ',desc:'Lignes H, M, Y, R, W, N',lvl:'N5',content:'kata_hm'},
+  {id:'l10',title:'Dakuten & Combinaisons',icon:'が',desc:'が, ざ, だ, ば, ぱ + youon',lvl:'N5',content:'combo'},
+  {id:'l11',title:'Kanji — Nombres 1-10',icon:'一',desc:'Compter de 1 à 10',lvl:'N5',content:'kanji_numbers'},
+  {id:'l12',title:'Kanji — Nature & Temps',icon:'日',desc:'日月火水木金土 + saisons',lvl:'N5',content:'kanji_nature'},
+  {id:'l13',title:'Grammaire — Phrase de base',icon:'文',desc:'は/が/を/に/で/の',lvl:'N5',content:'gram_basic'},
+  {id:'l14',title:'Grammaire — Verbes -masu',icon:'動',desc:'Conjugaison polie',lvl:'N5',content:'gram_masu'},
+  {id:'l15',title:'Vocabulaire — Salutations',icon:'👋',desc:'Bonjour, merci, excuse...',lvl:'N5',content:'voc_salutations'},
+  {id:'l16',title:'Vocabulaire — Famille',icon:'👨‍👩‍👧',desc:'Père, mère, frère...',lvl:'N5',content:'voc_famille'},
+  {id:'l17',title:'Grammaire — Forme te & ている',icon:'て',desc:'Actions en cours, requêtes',lvl:'N4',content:'gram_te'},
+  {id:'l18',title:'Grammaire — Permission & Interdiction',icon:'🚫',desc:'～てもいい / ～てはいけない',lvl:'N4',content:'gram_perm'},
+  {id:'l19',title:'Kanji N4 — Verbes courants',icon:'動',desc:'会行来見食飲...',lvl:'N4',content:'kanji_n4verbs'},
+  {id:'l20',title:'Grammaire — Conditionnels N3',icon:'🔀',desc:'～ば、～のに、～ながら',lvl:'N3',content:'gram_n3cond'},
+];
+
+// ================================================================
+// STATE
+// ================================================================
+let xp = +localStorage.getItem('nj_xp')||0;
+let lrn = JSON.parse(localStorage.getItem('nj_lrn')||'{}');
+let streak = +localStorage.getItem('nj_streak')||0;
+let doneL = JSON.parse(localStorage.getItem('nj_done')||'[]');
+let srsData = JSON.parse(localStorage.getItem('nj_srs')||'{}');
+// SRS card: {due: timestamp, interval: days, ease: 2.5, reps: 0}
+
+let fcDeck=[], fcIdx=0, fcQueue=[];
+let qMode='hira', qCurrent=null, qcOk=0, qcKo=0;
+let curKana='hira', curKanji='N5', curGram='N5', curVoc='salutations';
+let srsQueue=[], srsIdx=0;
+
+// ================================================================
+// XP
+// ================================================================
+function addXP(n){
+  xp+=n; localStorage.setItem('nj_xp',xp);
+  refreshXP(); updateStats();
+  toast('+'+n+' XP 🌸');
+}
+function refreshXP(){
+  const lv=Math.floor(xp/200)+1;
+  document.getElementById('lvl').textContent=lv;
+  document.getElementById('xpf').style.width=(xp%200)/2+'%';
+  document.getElementById('xpv').textContent=xp+' XP';
+}
+function updateStats(){
+  let h=0,k=0,kj=0;
+  H.forEach(x=>{if(lrn[x.k])h++;});
+  K.forEach(x=>{if(lrn[x.k])k++;});
+  KJ_N5.forEach(x=>{if(lrn[x.k])kj++;});
+  document.getElementById('sh').textContent=h+'/46';
+  document.getElementById('sk').textContent=k+'/46';
+  document.getElementById('skj').textContent=kj+'/80';
+  document.getElementById('sxp').textContent=xp;
+  const due=getSRSDue().length;
+  document.getElementById('srsdue').textContent=due;
+  document.getElementById('srsq').textContent=due;
+}
+
+// ================================================================
+// NAVIGATION
+// ================================================================
+const SCREENS=['home','lessons','lesson','kana','kanji','grammar','vocab','flash','quiz','srs'];
+function go(name){
+  SCREENS.forEach(s=>{
+    const el=document.getElementById('s-'+s);
+    if(el) el.classList.toggle('on',s===name);
+  });
+  document.querySelectorAll('.nb').forEach((b,i)=>{
+    const map=['home','lessons','kana','kanji','grammar','vocab','flash','quiz','srs'];
+    b.classList.toggle('on',map[i]===name);
+  });
+  if(name==='kana')renderKana();
+  if(name==='kanji')renderKanji('N5');
+  if(name==='grammar')renderGram('N5');
+  if(name==='vocab')renderVoc('salutations');
+  if(name==='flash')initFC('hira');
+  if(name==='quiz')initQ('hira');
+  if(name==='srs')initSRS();
+  if(name==='lessons')renderLessons();
+}
+
+// ================================================================
+// KANA TABLE
+// ================================================================
+function setKana(type,btn){
+  curKana=type;
+  document.querySelectorAll('#s-kana .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderKana();
+}
+function renderKana(){
+  const data=curKana==='hira'?H:curKana==='kata'?K:COMBO;
+  document.getElementById('kanaGrid').innerHTML=data.map(c=>`
+    <div class="kcell ${lrn[c.k]?'lrn':''}" onclick="openModal('${c.k}','${c.r} — ${curKana==='kata'?'Katakana':curKana==='hira'?'Hiragana':'Combinaison'}','<b>Exemple :</b> ${c.ex.replace(/'/g,"\\'")}${lrn[c.k]?"<br>✅ Appris !":""}')">
+      <span class="kc">${c.k}</span><span class="kr">${c.r}</span>
+    </div>`).join('');
+}
+
+// ================================================================
+// KANJI
+// ================================================================
+function setKanji(lvl,btn){
+  curKanji=lvl;
+  document.querySelectorAll('#s-kanji .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderKanji(lvl);
+}
+function renderKanji(lvl){
+  const data=lvl==='N4'?KJ_N4:lvl==='N3'?KJ_N3:KJ_N5;
+  document.getElementById('kanjiGrid').innerHTML=data.map(k=>`
+    <div class="kajcard ${lrn[k.k]?'lrn':''}" onclick="openModal('${k.k}','${k.m}','<b>ON :</b> ${k.on}<br><b>KUN :</b> ${k.kun||'—'}<br><b>JLPT :</b> ${lvl||'N5'}${lrn[k.k]?"<br>✅ Appris !":""}')">
+      <span class="kc2">${k.k}</span>
+      <div class="kon">${k.on}</div>
+      <div class="kkun">${k.kun||'—'}</div>
+      <div class="kmean">${k.m}</div>
+      <span class="kjlpt">${lvl||'N5'}</span>
+    </div>`).join('');
+}
+
+// ================================================================
+// GRAMMAR
+// ================================================================
+function setGram(lvl,btn){
+  curGram=lvl;
+  document.querySelectorAll('#s-grammar .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderGram(lvl);
+}
+function renderGram(lvl){
+  const items=GRAM[lvl]||[];
+  document.getElementById('gramList').innerHTML=items.map((g,i)=>`
+    <div class="gram-item" onclick="toggleGram(${i},'${lvl}')">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div>
+          <div class="gram-title">${g.title} <span class="jlpt-tag ${lvl==='N5'?'n5t':lvl==='N4'?'n4t':'n3t'}">${lvl}</span></div>
+          <div class="gram-struct">${g.struct}</div>
+        </div>
+      </div>
+      <div class="gram-body" id="gb-${lvl}-${i}">
+        <div class="gram-example">
+          <div class="gram-jp">${g.ex}</div>
+          <div class="gram-rom">${g.rom}</div>
+          <div class="gram-fr">${g.fr}</div>
+        </div>
+        <div class="gram-ex" style="margin-top:8px">${g.detail}</div>
+      </div>
+    </div>`).join('');
+}
+function toggleGram(i,lvl){
+  const el=document.getElementById(`gb-${lvl}-${i}`);
+  el.classList.toggle('open');
+}
+
+// ================================================================
+// VOCAB
+// ================================================================
+function setVocab(cat,btn){
+  curVoc=cat;
+  document.querySelectorAll('#s-vocab .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderVoc(cat);
+}
+function renderVoc(cat){
+  const items=VOC[cat]||[];
+  document.getElementById('vocabGrid').innerHTML=items.map(v=>`
+    <div class="vocab-card" onclick="openModal('${v.jp}','${v.fr}','<b>Romaji :</b> ${v.r}<br><b>Catégorie :</b> ${v.cat}')">
+      <span class="vocab-jp">${v.jp}</span>
+      <div class="vocab-rom">${v.r}</div>
+      <div class="vocab-fr">${v.fr}</div>
+    </div>`).join('');
+}
+
+// ================================================================
+// FLASHCARDS
+// ================================================================
+function setDeck(type,btn){
+  document.querySelectorAll('#s-flash .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  initFC(type);
+}
+function initFC(type){
+  let deck=[];
+  if(type==='hira')deck=H.map(x=>({k:x.k,r:x.r,ex:x.ex,type:'Hiragana'}));
+  else if(type==='kata')deck=K.map(x=>({k:x.k,r:x.r,ex:x.ex,type:'Katakana'}));
+  else if(type==='kanji')deck=KJ_N5.map(x=>({k:x.k,r:x.m,ex:'ON: '+x.on+' | KUN: '+x.kun,type:'Kanji N5'}));
+  else if(type==='vocab'){
+    Object.values(VOC).forEach(arr=>arr.forEach(v=>deck.push({k:v.jp,r:v.fr,ex:v.r,type:'Vocabulaire'})));
+  } else {
+    deck=[...H,...K].map(x=>({k:x.k,r:x.r,ex:x.ex,type:'Kana'}));
+  }
+  fcQueue=shuf([...deck]);
+  fcIdx=0;
+  showFC();
+}
+function showFC(){
+  if(!fcQueue.length)return;
+  if(fcIdx>=fcQueue.length){fcIdx=0;shuf(fcQueue);}
+  const c=fcQueue[fcIdx];
+  document.getElementById('fckana').textContent=c.k;
+  document.getElementById('fcrom').textContent=c.r;
+  document.getElementById('fcex').textContent=c.ex;
+  document.getElementById('fcprog').textContent=`Carte ${fcIdx+1} / ${fcQueue.length}`;
+  document.getElementById('fccard').classList.remove('flip');
+}
+function flipFC(){document.getElementById('fccard').classList.toggle('flip');}
+function fcAns(ok){
+  if(ok){
+    const c=fcQueue[fcIdx];
+    lrn[c.k]=true;
+    localStorage.setItem('nj_lrn',JSON.stringify(lrn));
+    addXP(5);confetti();
+    addToSRS(c.k);
+  }
+  fcIdx++;showFC();
+}
+function fcSkip(){fcIdx++;showFC();}
+
+// ================================================================
+// QUIZ
+// ================================================================
+function setQuizMode(mode,btn){
+  document.querySelectorAll('#s-quiz .pill').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  qMode=mode;qcOk=0;qcKo=0;
+  document.getElementById('qc').textContent=0;
+  document.getElementById('qw').textContent=0;
+  nextQ();
+}
+function initQ(mode){qMode=mode;qcOk=0;qcKo=0;nextQ();}
+function nextQ(){
+  document.getElementById('qnext').style.display='none';
+  document.getElementById('qfb').textContent='';
+  let pool=[];
+  if(qMode==='hira')pool=H.map(x=>({k:x.k,ans:x.r,lbl:'Hiragana → Romaji'}));
+  else if(qMode==='kata')pool=K.map(x=>({k:x.k,ans:x.r,lbl:'Katakana → Romaji'}));
+  else if(qMode==='kanji')pool=KJ_N5.map(x=>({k:x.k,ans:x.m,lbl:'Kanji → Sens'}));
+  else if(qMode==='vocab'){
+    Object.values(VOC).forEach(arr=>arr.forEach(v=>pool.push({k:v.jp,ans:v.fr,lbl:'Vocabulaire → Français'})));
+  } else {
+    pool=[...H,...K].map(x=>({k:x.k,ans:x.r,lbl:'Kana → Romaji'}));
+  }
+  shuf(pool);
+  qCurrent=pool[0];
+  const wrongs=pool.filter(x=>x.ans!==qCurrent.ans).slice(0,3);
+  const opts=shuf([qCurrent,...wrongs]);
+  document.getElementById('qchar').textContent=qCurrent.k;
+  document.getElementById('qlbl').textContent=qCurrent.lbl;
+  document.getElementById('qopts').innerHTML=opts.map(o=>`
+    <button class="qopt" onclick="checkQ('${o.ans.replace(/'/g,"\\'")}',this)">${o.ans}</button>`).join('');
+}
+function checkQ(ans,btn){
+  document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const ok=ans===qCurrent.ans;
+  btn.classList.add(ok?'ok':'ko');
+  if(!ok) document.querySelectorAll('.qopt').forEach(b=>{if(b.textContent===qCurrent.ans)b.classList.add('ok');});
+  const fb=document.getElementById('qfb');
+  if(ok){
+    fb.innerHTML='🎉 Correct ! +10 XP';fb.style.color='var(--ok)';
+    qcOk++;document.getElementById('qc').textContent=qcOk;
+    addXP(10);confetti();
+    reviewSRS(qCurrent.k,5);
+  } else {
+    fb.innerHTML=`✗ C'était : <b>${qCurrent.ans}</b>`;fb.style.color='var(--err)';
+    qcKo++;document.getElementById('qw').textContent=qcKo;
+    reviewSRS(qCurrent.k,1);
+  }
+  document.getElementById('qnext').style.display='block';
+}
+
+// ================================================================
+// SRS (SM-2 algorithm)
+// ================================================================
+function addToSRS(key){
+  if(!srsData[key]){
+    srsData[key]={due:Date.now(),interval:1,ease:2.5,reps:0};
+    localStorage.setItem('nj_srs',JSON.stringify(srsData));
+  }
+}
+function reviewSRS(key,q){
+  // q: 0-5 (0=fail, 5=perfect)
+  if(!srsData[key])return;
+  const c=srsData[key];
+  if(q<3){c.reps=0;c.interval=1;}
+  else {
+    if(c.reps===0)c.interval=1;
+    else if(c.reps===1)c.interval=6;
+    else c.interval=Math.round(c.interval*c.ease);
+    c.reps++;
+    c.ease=Math.max(1.3,c.ease+(0.1-(5-q)*(0.08+(5-q)*0.02)));
+  }
+  c.due=Date.now()+c.interval*86400000;
+  localStorage.setItem('nj_srs',JSON.stringify(srsData));
+  updateStats();
+}
+function getSRSDue(){
+  const now=Date.now();
+  return Object.keys(srsData).filter(k=>srsData[k].due<=now);
+}
+function initSRS(){
+  srsQueue=shuf(getSRSDue());
+  srsIdx=0;
+  renderSRS();
+}
+function renderSRS(){
+  const cont=document.getElementById('srsContent');
+  if(!srsQueue.length){
+    cont.innerHTML=`<div style="text-align:center;padding:30px">
+      <div style="font-size:3rem">🎉</div>
+      <div style="font-weight:900;color:var(--sky-d);font-size:1.1rem;margin-top:8px">Toutes les révisions sont faites !</div>
+      <div style="font-size:.85rem;color:var(--txt-l);font-weight:600;margin-top:4px">Reviens demain pour de nouvelles révisions.</div>
+    </div>`;return;
+  }
+  const key=srsQueue[srsIdx];
+  if(!key||srsIdx>=srsQueue.length){
+    cont.innerHTML=`<div style="text-align:center;padding:20px;font-weight:900;color:var(--ok)">✅ Session terminée ! +${srsQueue.length*8} XP</div>`;
+    addXP(srsQueue.length*8);return;
+  }
+  // Find card data
+  const allCards=[...H,...K,...KJ_N5,...KJ_N4,...KJ_N3];
+  const card=allCards.find(c=>c.k===key)||{k:key,r:'?',ex:'?',m:'?'};
+  const c=srsData[key];
+  const lvl=c.reps===0?'new':c.reps<4?'learn':c.interval>14?'master':'review';
+  const lvlLabels={new:'Nouveau 🌱',learn:'Apprentissage 📖',review:'Révision 🔁',master:'Maîtrisé ⭐'};
+  cont.innerHTML=`
+    <div style="text-align:center">
+      <div class="srs-badge srs-${lvl}">${lvlLabels[lvl]}</div>
+      <div style="font-family:'Noto Sans JP',sans-serif;font-size:4rem;margin:12px 0;color:var(--txt)">${card.k}</div>
+      <div style="font-size:.85rem;color:var(--txt-l);font-weight:600;margin-bottom:16px">${srsIdx+1} / ${srsQueue.length} cartes</div>
+      <div id="srsAns" style="display:none;margin-bottom:14px">
+        <div style="font-size:1.4rem;font-weight:900;color:var(--sky-d)">${card.r||card.m}</div>
+        <div style="font-size:.82rem;color:var(--txt-l);font-weight:600;margin-top:4px">${card.ex||''}</div>
+      </div>
+      <div id="srsReveal" class="lc-btns"><button class="lc-btn primary" onclick="revealSRS()">Révéler la réponse</button></div>
+      <div id="srsBtns" style="display:none" class="lc-btns">
+        <button class="fcb bad" onclick="srsMark(1)">✗ Difficile</button>
+        <button class="fcb skip" onclick="srsMark(3)">~ Bien</button>
+        <button class="fcb good" onclick="srsMark(5)">✓ Facile !</button>
+      </div>
+    </div>`;
+}
+function revealSRS(){
+  document.getElementById('srsAns').style.display='block';
+  document.getElementById('srsReveal').style.display='none';
+  document.getElementById('srsBtns').style.display='flex';
+}
+function srsMark(q){
+  reviewSRS(srsQueue[srsIdx],q);
+  if(q>=3){addXP(8);if(q===5)confetti();}
+  srsIdx++;
+  renderSRS();
+}
+
+// ================================================================
+// LESSONS
+// ================================================================
+function renderLessons(){
+  document.getElementById('lessonList').innerHTML=LESSONS.map((l,i)=>{
+    const done=doneL.includes(l.id);
+    const locked=i>0&&!doneL.includes(LESSONS[i-1].id)&&i>2;
+    return `<div class="lesson-item ${done?'done':''} ${locked?'locked':''}" onclick="${locked?'toast(\'Termine la leçon précédente d abord !\')':''`openLesson('${l.id}')`}">
+      <span class="li-icon">${l.icon}</span>
+      <div class="li-info"><h3>${l.title}</h3><p>${l.desc}</p></div>
+      <span class="li-badge ${done?'lb-done':locked?'lb-lock':'lb-new'}">${done?'✓ Fait':locked?'🔒':l.lvl}</span>
+    </div>`;
+  }).join('');
+}
+function openLesson(id){
+  const l=LESSONS.find(x=>x.id===id);
+  if(!l)return;
+  const cont=document.getElementById('lessonContent');
+  cont.innerHTML=renderLessonContent(l);
+  go('lesson');
+}
+function renderLessonContent(l){
+  const subsets={
+    hira_vowels:H.slice(0,5),
+    hira_ks:H.slice(5,15),
+    hira_tn:H.slice(15,25),
+    hira_hm:H.slice(25,35),
+    hira_yr:[...H.slice(35,38),...H.slice(38,43)],
+    hira_wn:H.slice(43),
+    kata_vowels:K.slice(0,5),
+    kata_ks:K.slice(5,25),
+    kata_hm:K.slice(25),
+    combo:COMBO.slice(0,20),
+    kanji_numbers:KJ_N5.slice(60,70),
+    kanji_nature:KJ_N5.slice(0,10),
+    kanji_n4verbs:KJ_N4.slice(0,15),
+  };
+  const data=subsets[l.content];
+  let html=`<button class="lc-btn sec" onclick="go('lessons')" style="margin-bottom:14px">← Retour</button>
+  <div class="lc-step"><h3>${l.icon} ${l.title}</h3><p style="font-size:.85rem;color:var(--txt-l);font-weight:600;margin-top:4px">${l.desc}</p></div>`;
+
+  if(data){
+    html+=`<div class="lc-step"><h3>📋 Tableau</h3>
+    <table class="lc-table"><tr><th>Caractère</th><th>Romaji</th><th>Exemple</th></tr>
+    ${data.map(c=>`<tr><td>${c.k}</td><td>${c.r||c.m}</td><td>${c.ex||c.on+' | '+c.kun}</td></tr>`).join('')}
+    </table></div>`;
+  }
+
+  // Grammar lesson
+  if(l.content.startsWith('gram')){
+    const gmap={gram_basic:'N5',gram_masu:'N5',gram_te:'N4',gram_perm:'N4',gram_n3cond:'N3'};
+    const glvl=gmap[l.content]||'N5';
+    const gdata=GRAM[glvl]||[];
+    html+=`<div class="lc-step"><h3>📖 Points de grammaire</h3>
+    ${gdata.slice(0,3).map(g=>`
+      <div style="margin-bottom:12px;padding:10px;background:rgba(126,207,239,.1);border-radius:12px">
+        <div style="font-weight:900;color:var(--sky-d)">${g.title}</div>
+        <div style="font-family:'Noto Sans JP',sans-serif;font-size:.9rem;margin:4px 0">${g.ex}</div>
+        <div style="font-size:.78rem;color:var(--txt-l);font-weight:600">${g.fr}</div>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  // Vocab lesson
+  if(l.content.startsWith('voc')){
+    const vmap={voc_salutations:'salutations',voc_famille:'famille'};
+    const vcat=vmap[l.content]||'salutations';
+    const vdata=VOC[vcat]||[];
+    html+=`<div class="lc-step"><h3>💬 Vocabulaire</h3>
+    <div class="vocab-grid">${vdata.map(v=>`
+      <div class="vocab-card"><span class="vocab-jp">${v.jp}</span><div class="vocab-rom">${v.r}</div><div class="vocab-fr">${v.fr}</div></div>`).join('')}
+    </div></div>`;
+  }
+
+  html+=`<div class="lc-btns">
+    <button class="lc-btn primary" onclick="completeLesson('${l.id}')">✓ Marquer comme terminé (+50 XP)</button>
+    <button class="lc-btn sec" onclick="go('quiz')">🎯 Pratiquer en quiz</button>
+  </div>`;
+  return html;
+}
+function completeLesson(id){
+  if(!doneL.includes(id)){
+    doneL.push(id);
+    localStorage.setItem('nj_done',JSON.stringify(doneL));
+    addXP(50);confetti();
+  }
+  toast('Leçon terminée ! 🌸');
+  go('lessons');
+}
+
+// ================================================================
+// MODAL
+// ================================================================
+function openModal(char,title,body){
+  document.getElementById('mchar').textContent=char;
+  document.getElementById('mtitle').textContent=title;
+  document.getElementById('mbody').innerHTML=body;
+  document.getElementById('mover').classList.add('open');
+}
+function cm(e){if(e.target===document.getElementById('mover'))closeM();}
+function closeM(){document.getElementById('mover').classList.remove('open');}
+
+// ================================================================
+// TOAST
+// ================================================================
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ================================================================
+// CONFETTI
+// ================================================================
+function confetti(){
+  const cols=['#7ecfef','#a8eac8','#ffb3d1','#ffe066','#ff6fa8','#4db888','#d4c6f7'];
+  for(let i=0;i<20;i++){
+    const el=document.createElement('div');
+    el.className='cf';
+    el.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*40}vh;background:${cols[Math.floor(Math.random()*cols.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-delay:${Math.random()*.4}s;animation-duration:${.9+Math.random()*.5}s`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1500);
+  }
+}
+
+// ================================================================
+// UTILS
+// ================================================================
+function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+// ================================================================
+// STREAK
+// ================================================================
+const today=new Date().toDateString();
+const last=localStorage.getItem('nj_last');
+if(last!==today){
+  const yest=new Date(Date.now()-86400000).toDateString();
+  streak=last===yest?streak+1:1;
+  localStorage.setItem('nj_streak',streak);
+  localStorage.setItem('nj_last',today);
+}
+document.getElementById('strk').textContent=streak;
+
+// ================================================================
+// INIT
+// ================================================================
+refreshXP();updateStats();renderKana();renderLessons();
+// Pre-fill SRS with some learned items
+Object.keys(lrn).forEach(k=>{if(lrn[k])addToSRS(k);});
+
+// Service Worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+// ================================================================
+// NOTIFICATIONS DE RAPPEL QUOTIDIEN
+// ================================================================
+function askNotifPermission(){
+  if(!('Notification' in window)){toast('Notifications non supportées 😢');return;}
+  if(Notification.permission==='granted'){scheduleNotif();toast('Rappels déjà activés ✅');}
+  else if(Notification.permission!=='denied'){
+    Notification.requestPermission().then(p=>{
+      if(p==='granted'){scheduleNotif();toast('Rappels activés ! 🔔');renderNotifBtn();}
+      else toast('Notifications refusées.');
+    });
+  } else {toast('Active les notifs dans les réglages du navigateur.');}
+}
+
+function scheduleNotif(){
+  const messages=[
+    '🌸 C\'est l\'heure de pratiquer le japonais !',
+    '⛩️ Garde ta série ! Quelques minutes de japonais ?',
+    '🎌 Tes révisions SRS t\'attendent !',
+    '🌸 Ohayou ! Un peu de japonais ce matin ?',
+    '🔥 Ne laisse pas ta série s\'éteindre !'
+  ];
+  const msg=messages[Math.floor(Math.random()*messages.length)];
+  const now=new Date();
+  const next=new Date();
+  next.setHours(9,0,0,0);
+  if(next<=now)next.setDate(next.getDate()+1);
+  const delay=next-now;
+  setTimeout(()=>{
+    if(Notification.permission==='granted'){
+      new Notification('にほんご Learn 🌸',{
+        body:msg,
+        icon:'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f338.png',
+        tag:'nihongo-daily'
+      });
+    }
+    scheduleNotif(); // re-programme le lendemain
+  },delay);
+  localStorage.setItem('nj_notif','1');
+  localStorage.setItem('nj_notif_next',next.toISOString());
+}
+
+function renderNotifBtn(){
+  const el=document.getElementById('notifBtn');
+  if(!el)return;
+  const perm=('Notification' in window)?Notification.permission:'no';
+  const nextStr=localStorage.getItem('nj_notif_next');
+  if(perm==='granted'&&nextStr){
+    const next=new Date(nextStr);
+    el.textContent=`🔔 Rappel programmé : ${next.toLocaleDateString('fr-FR')} à 9h00 ✅`;
+    el.style.opacity='.7';el.onclick=null;
+  } else if(perm==='denied'){
+    el.textContent='🔕 Notifications bloquées dans le navigateur';
+    el.style.opacity='.5';el.onclick=null;
+  }
+}
+
+if('Notification' in window && Notification.permission==='granted' && !localStorage.getItem('nj_notif')){
+  scheduleNotif();
+}
+setTimeout(renderNotifBtn,200);
+</script>
+</body>
+</html>
